@@ -65,7 +65,7 @@ module.exports = class extends Generator {
             this.fs.copy(__dirname + "/templates/models", "models");
             this.fs.copy(__dirname + "/templates/public", "public");
             this.fs.copy(__dirname + "/templates/production.js", "production.js");
-            this.fs.copy(__dirname + "/templates/.gitignore", ".gitignore");
+            this.fs.copy(__dirname + "/templates/gitignoreTemplate", ".gitignore");
         } else {
             this.errors.push("You must name your app");
         }
