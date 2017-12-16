@@ -21,7 +21,7 @@ module.exports = class extends Generator {
     writing() {
         if (this.fs.exists("./models/" + this.props.name + ".model.js")) {
             if (this.fs.exists("./routes/v" + this.props.version + "/v" + this.props.version + ".router.js")) {
-                let fileName = this.props.name.toLowerCase();
+                let fileName = this.props.name.toLowerCase()+"s";
                 let modelName = this.props.name.substring(0, 1).toUpperCase() + this.props.name.substring(1, fileName.length).toLowerCase();
                 this.fs.copyTpl(__dirname + "/templates/public.template.js", "./routes/v" + this.props.version + "/public/" + fileName + ".router.js", { name: modelName });
                 this.fs.copyTpl(__dirname + "/templates/secure.template.js", "./routes/v" + this.props.version + "/secure/" + fileName + ".secure.js", { name: modelName });
