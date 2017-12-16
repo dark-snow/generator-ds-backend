@@ -53,9 +53,10 @@ module.exports = class extends Generator {
     }
     writing() {
         if (this.props.appName) {
-            let pack = this._genPackage();
             mkdirp(this.props.appName);
             this.destinationRoot(this.props.appName);
+            this.destinationPath(this.props.appName);
+            let pack = this._genPackage();
             mkdirp('upload');
             this.fs.write("package.json", JSON.stringify(pack));
             let index = this.fs.read(__dirname + "/templates/index.js");
@@ -71,7 +72,7 @@ module.exports = class extends Generator {
         }
     }
     install() {
-        let packages = ["express", "body-parser", "mongo-leaf", "leaf-auth-express","express-fileupload","dark-snow-response","pm2"];
+        let packages = ["express", "body-parser", "mongo-leaf", "leaf-auth-express", "express-fileupload", "dark-snow-response", "pm2"];
         let devPackages = ["supervisor"]
         if (this.props.installer === 'npm') {
             this.npmInstall(packages);
@@ -83,8 +84,11 @@ module.exports = class extends Generator {
     }
 
     end() {
-        if (this.errors) {
+        if (this.errors && this.errors.length > 0) {
             this.errors.forEach(e => console.error(e));
+        } else {
+            this.config.set("appName", this.props.appName);
+            this.config.save();
         }
     }
 
